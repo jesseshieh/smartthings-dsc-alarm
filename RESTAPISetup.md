@@ -8,7 +8,7 @@ Modify the "First URL" below and replace the $client variable at the end of the 
 
 First URL:
 
-    https://graph.api.smartthings.com/oauth/authorize?response_type=code&redirect_uri=http://localhost&scope=app&client_id=$client
+    https://graph-na04-useast2.api.smartthings.com/oauth/authorize?response_type=code&redirect_uri=http://localhost&scope=app&client_id=$client
 
 Paste the resulting line into your web browser (note it's worthwhile to save all these URLs you are making until it's all setup).
 You should see the Smartthings login page, login with your usual developer credentials.
@@ -25,7 +25,7 @@ Ok now for the Second URL below, replace $client with your OAuth Client ID again
 
 Second URL:
 
-    https://graph.api.smartthings.com/oauth/token?grant_type=authorization_code&scope=app&redirect_uri=http://localhost&client_id=$client&client_secret=$secret&code=$code
+    curl https://graph-na04-useast2.api.smartthings.com/oauth/token -d 'grant_type=authorization_code&scope=app&redirect_uri=http://localhost&client_id=$client&client_secret=$secret&code=$code' -H 'Content-Type: application/x-www-form-urlencoded'
 
 Paste your resulting new Second URL line into the web browser again (same page/tab that you used last time works well). If all went well you should see JSON output on the page with a field called "access_token". Copy the access_token value down it looks something like 'a743h22sds-221sahdbabv-sh282hs-sn21712'.
 
@@ -39,7 +39,7 @@ You now need to get your apps ID so you can reference it directly, go to the URL
 
 List all your installed apps:
 
-    https://graph.api.smartthings.com/api/smartapps/installations/
+    https://graph-na04-useast2.api.smartthings.com/api/smartapps/installations/
 
 Search for a 'label' field matching your application name and copy down the 'id' field right above it.
 (It helps if you have a JSON formatted plugin in your web browser but it's just as easy to grab if you don't)
@@ -51,7 +51,8 @@ You can change those 2 values as needed and watch your panel devices open and cl
 
 Test URL:
 
-    https://graph.api.smartthings.com/api/smartapps/installations/$appID/panel/609/1?access_token=$access_token
+    https://graph-na04-useast2.api.smartthings.com/api/smartapps/installations/$appID/panel/609/1?access_token=$access_token
+    https://graph-na04-useast2.api.smartthings.com/api/smartapps/installations/$appID/panel/610/1?access_token=$access_token
 
 
 
