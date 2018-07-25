@@ -65,6 +65,7 @@ def updated() {
 }
 
 void updateZoneOrPartition() {
+  log.debug "updating"
   update()
 }
 
@@ -105,7 +106,9 @@ private update() {
         // log.debug "Test: ${opts[0]} and: ${opts[1]} for $zoneorpartition"
         if ("${opts[0]}" == 'zone') {
            //log.debug "It was a zone...  ${opts[1]}"
-           updateZoneDevices(zonedevices,"$zoneorpartition","${opts[1]}")
+           // WTF(jesse): zonedevices is null, but the DSC Zones are all in paneldevices..
+           // updateZoneDevices(zonedevices,"$zoneorpartition","${opts[1]}")
+           updateZoneDevices(paneldevices,"$zoneorpartition","${opts[1]}")
         }
         if ("${opts[0]}" == 'partition') {
            //log.debug "It was a zone...  ${opts[1]}"
@@ -117,9 +120,9 @@ private update() {
 
 private updateZoneDevices(zonedevices,zonenum,zonestatus) {
   log.debug "zonedevices: $zonedevices - ${zonenum} is ${zonestatus}"
-  // log.debug "zonedevices.id are $zonedevices.id"
-  // log.debug "zonedevices.displayName are $zonedevices.displayName"
-  // log.debug "zonedevices.deviceNetworkId are $zonedevices.deviceNetworkId"
+  log.debug "zonedevices.id are $zonedevices.id"
+  log.debug "zonedevices.displayName are $zonedevices.displayName"
+  log.debug "zonedevices.deviceNetworkId are $zonedevices.deviceNetworkId"
   def zonedevice = zonedevices.find { it.deviceNetworkId == "zone${zonenum}" }
   if (zonedevice) {
       log.debug "Was True... Zone Device: $zonedevice.displayName at $zonedevice.deviceNetworkId is ${zonestatus}"
@@ -158,3 +161,4 @@ private sendMessage(msg) {
         sendPush(newMsg)
     }
 }
+
